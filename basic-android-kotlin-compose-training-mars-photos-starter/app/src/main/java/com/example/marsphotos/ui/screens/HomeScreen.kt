@@ -15,6 +15,7 @@
  */
 package com.example.marsphotos.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,8 +33,24 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.marsphotos.R
+import com.example.marsphotos.network.MarsPhoto
 import com.example.marsphotos.ui.theme.MarsPhotosTheme
 
+@Composable
+fun HomeScreen(
+    marsUiState: MarsUiState, modifier: Modifier = Modifier
+) {
+    when (marsUiState) {
+        is MarsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+        is MarsUiState.Success -> ResultScreen(
+            marsUiState.photos, modifier = modifier.fillMaxWidth()
+        )
+
+        is MarsUiState.Error -> ErrorScreen( modifier = modifier.fillMaxSize())
+    }
+
+
+}
 
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
@@ -57,32 +74,20 @@ fun ErrorScreen(modifier: Modifier = Modifier) {
         Text(text = stringResource(R.string.loading_failed), modifier = Modifier.padding(16.dp))
     }
 }
-@Composable
-fun HomeScreen(
-    marsUiState: MarsUiState, modifier: Modifier = Modifier
-) {
-    when (marsUiState){
-        is MarsUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-        is MarsUiState.Success -> ResultScreen(
-            marsUiState.photos, modifier = modifier.fillMaxWidth()
-        )
 
-        is MarsUiState.Error -> ErrorScreen( modifier = modifier.fillMaxSize())
 
-    }
-
-}
 
 /**
  * ResultScreen displaying number of photos retrieved.
  */
 @Composable
-fun ResultScreen(photos: String, modifier: Modifier = Modifier) {
+fun ResultScreen(photos: List<MarsPhoto>, modifier: Modifier = Modifier) {
+    photos.forEach({ Log.d ("objm", it.toString() ) })
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
     ) {
-        Text(text = photos)
+        Text(text = "Cantidad de fotos de marte: ${photos.size}")
     }
 }
 
@@ -90,6 +95,6 @@ fun ResultScreen(photos: String, modifier: Modifier = Modifier) {
 @Composable
 fun ResultScreenPreview() {
     MarsPhotosTheme {
-        ResultScreen(stringResource(R.string.placeholder_result))
+       // ResultScreen(stringResource(R.string.placeholder_result))
     }
 }
