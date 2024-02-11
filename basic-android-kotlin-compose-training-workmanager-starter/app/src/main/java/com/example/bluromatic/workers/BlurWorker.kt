@@ -22,7 +22,6 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, 
         val resourceUri = inputData.getString(KEY_IMAGE_URI)
         val blurLevel = inputData.getInt(KEY_BLUR_LEVEL, 1)
 
-        TODO("Not yet implemented")
         makeStatusNotification(
             applicationContext.resources.getString(R.string.blurring_image),
             applicationContext
@@ -45,7 +44,7 @@ class BlurWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx, 
                 )
 
                 // This is an utility function added to emulate slower work.
-                //delay(DELAY_TIME_MILLIS)
+                delay(DELAY_TIME_MILLIS)
                 //val picture = BitmapFactory.decodeResource(
                 //    applicationContext.resources,
                 //    R.drawable.android_cupcake
