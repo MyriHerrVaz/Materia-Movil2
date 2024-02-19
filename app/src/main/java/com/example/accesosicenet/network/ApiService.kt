@@ -1,16 +1,21 @@
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.http.Body
 import retrofit2.http.GET
-
-private const val BASE_URL = "https://sicenet.surguanajuato.tecnm.mx"
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create()).baseUrl(BASE_URL).build()
+import retrofit2.http.Headers
+import retrofit2.http.POST
 
 interface ApiService{
-    @GET("Usuario")
-    suspend fun getUsuario():String
-}
+    @Headers(
+        "Content-Type: text/xml",
+        "SOAPAction: \"http://tempuri.org/accesoLogin\"",
+    )
 
-object Api{
-    val retrofitService: ApiService by Lazy { retrofit.create(ApiService::class.java) }
+    @POST("ws/wsalumnos.asmx")
+    suspend fun getAcceso(
+        @Body requestBody: RequestBody
+    ): ResponseBody
+
+    @GET("ws/wsalumnos.asmx")
+    suspend fun getCokies(): ResponseBody
 }
