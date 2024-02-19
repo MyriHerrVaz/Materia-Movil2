@@ -1,6 +1,7 @@
 package com.example.accesosicenet.data
 
 import ApiService
+import android.util.Log
 import com.example.accesosicenet.modelos.UsuarioAccess
 import com.example.accesosicenet.modelos.UsuarioInfo
 import com.example.accesosicenet.network.InfoApiService
@@ -34,6 +35,7 @@ class UsuariosRepository (
             var respuestDatos=usuarioApiService.getAcceso(requestBody).string().split("{","}")
             if(respuestDatos.size>1){
                 val result = Gson().fromJson("{"+respuestDatos[1]+"}", UsuarioAccess::class.java)
+                Log.d("Infoacceso",""+result)
                 result.acceso.equals("true")
             } else
                 false

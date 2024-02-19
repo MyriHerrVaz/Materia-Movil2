@@ -64,11 +64,10 @@ fun GreetingPreview() {
     }
 }
 @Composable
-fun NameField(modifier: Modifier = Modifier) {
-    var amountInput by remember {mutableStateOf("")}
+fun NameField(viewmodel: LoginView, modifier: Modifier = Modifier) {
     TextField(
-        value = amountInput,
-        onValueChange = { amountInput = it},
+        value = viewmodel.nocontrol,
+        onValueChange = { viewmodel.nocontrol = it},
         singleLine = true,
         label = { Text(stringResource(R.string.usuario)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
@@ -76,11 +75,10 @@ fun NameField(modifier: Modifier = Modifier) {
     )
 }
 @Composable
-fun PassField(modifier: Modifier = Modifier) {
-    var amountInput by remember {mutableStateOf("")}
+fun PassField(viewmodel: LoginView,modifier: Modifier = Modifier) {
     TextField(
-        value = amountInput,
-        onValueChange = { amountInput = it},
+        value = viewmodel.password,
+        onValueChange = { viewmodel.password = it},
         singleLine = true,
         label = { Text(stringResource(R.string.pass)) },
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -98,7 +96,7 @@ fun SimpleOutlinedTextFieldSample(
             text = "Escribe el usuario!",
             modifier = Modifier
         )
-        NameField(modifier = Modifier
+        NameField(viewmodel,modifier = Modifier
             .padding(horizontal = 5.dp, vertical = 5.dp)
             .fillMaxWidth()
         )
@@ -106,7 +104,7 @@ fun SimpleOutlinedTextFieldSample(
             text = "Contraseña:",
             modifier = Modifier
         )
-        PassField(modifier = Modifier
+        PassField(viewmodel,modifier = Modifier
             .padding(horizontal = 5.dp, vertical = 5.dp)
             .fillMaxWidth()
         )
@@ -114,8 +112,8 @@ fun SimpleOutlinedTextFieldSample(
             if (!viewmodel.nocontrol.equals("") && !viewmodel.password.equals("")){
                 corrutina.launch {
                     if(viewmodel.getAccess(viewmodel.nocontrol,viewmodel.password)){
-                        var info=viewmodel.getInfo()
-                        Log.d("info",info)
+                        //var info=viewmodel.getInfo()
+                        //Log.d("info",info)
                     }
                 }
             }
