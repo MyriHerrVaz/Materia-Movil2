@@ -1,5 +1,6 @@
 package com.example.accesosicenet.viewModel
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,10 +10,14 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.accesosicenet.UsuarioApplication
 import com.example.accesosicenet.data.usuarioRepository
+import com.example.accesosicenet.modelos.UsuarioInfo
 
 class LoginView(private val usuarioRepository: usuarioRepository): ViewModel(){
     var nocontrol by mutableStateOf("")
     var password by mutableStateOf("")
+    var usuario by mutableStateOf(UsuarioInfo("",0,false,""
+        ,"",false,"",0,0,
+        0,"","",0,"",""))
 
     fun updateNocontrol(string: String){
         nocontrol=string
@@ -24,8 +29,9 @@ class LoginView(private val usuarioRepository: usuarioRepository): ViewModel(){
         return usuarioRepository.getAccess(matricula, password)
     }
 
-    suspend fun getInfo():String{
-        return usuarioRepository.getInfo()
+    suspend fun getInfo(){
+        usuario =usuarioRepository.getInfo()
+        Log.d("Usuario", usuario.toString())
     }
 
     companion object {
