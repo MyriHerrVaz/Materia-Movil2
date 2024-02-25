@@ -68,7 +68,10 @@ class BlurViewModel(private val bluromaticRepository: BluromaticRepository) : Vi
         bluromaticRepository.applyBlur(blurLevel)
     }
 
-    fun cancelWork(){
+    /**
+     * Call method from repository to cancel any ongoing WorkRequest
+     * */
+    fun cancelWork() {
         bluromaticRepository.cancelWork()
     }
 
