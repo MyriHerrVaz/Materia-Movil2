@@ -7,9 +7,9 @@ import com.example.bluromatic.KEY_IMAGE_URI
 import com.example.bluromatic.workers.BlurWorker
 import com.example.bluromatic.workers.CleanupWorker
 import com.example.bluromatic.workers.SaveImageToFileWorker
-import junit.framework.Assert.assertTrue
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
