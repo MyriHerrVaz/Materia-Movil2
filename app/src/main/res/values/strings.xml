@@ -3,4 +3,11 @@
     <string name="boton">Sumit</string>
     <string name="usuario">Usuario</string>
     <string name="pass">Contraseña</string>
+    <string name="title_activity_mostrar_usuario">MostrarUsuario</string>
+    <string name="title_activity_perfil">Perfil</string>
+    <string name="title_activity_horario">Horario</string>
+    <string name="title_activity_calificacion_final">CalificacionFinal</string>
+    <string name="title_activity_cardex_alumno">CardexAlumno</string>
+    <string name="title_activity_cardex">Cardex</string>
+    <string name="title_activity_calificacion_unidad">CalificacionUnidad</string>
 </resources>

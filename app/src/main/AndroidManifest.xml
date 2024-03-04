@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".UsuarioApplication"
         android:allowBackup="true"
@@ -13,6 +15,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AccesoSicenet"
         tools:targetApi="31">
+        <activity
+            android:name=".screens.CalificacionUnidad"
+            android:exported="false"
+            android:label="@string/title_activity_calificacion_unidad"
+            android:theme="@style/Theme.AccesoSicenet" />
+        <activity
+            android:name=".screens.Cardex"
+            android:exported="false"
+            android:label="@string/title_activity_cardex"
+            android:theme="@style/Theme.AccesoSicenet" />
+        <activity
+            android:name=".screens.CardexAlumno"
+            android:exported="false"
+            android:label="@string/title_activity_cardex_alumno"
+            android:theme="@style/Theme.AccesoSicenet" />
+        <activity
+            android:name=".screens.CalificacionFinal"
+            android:exported="false"
+            android:label="@string/title_activity_calificacion_final"
+            android:theme="@style/Theme.AccesoSicenet" />
+        <activity
+            android:name=".screens.Horario"
+            android:exported="false"
+            android:label="@string/title_activity_horario"
+            android:theme="@style/Theme.AccesoSicenet" />
+        <activity
+            android:name=".screens.Perfil"
+            android:exported="false"
+            android:label="@string/title_activity_perfil"
+            android:theme="@style/Theme.AccesoSicenet" />
+        <activity
+            android:name=".screens.MostrarUsuario"
+            android:exported="false"
+            android:label="@string/title_activity_mostrar_usuario"
+            android:theme="@style/Theme.AccesoSicenet" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

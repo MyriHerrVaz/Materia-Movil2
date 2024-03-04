@@ -1,5 +1,8 @@
 package com.example.accesosicenet.modelos
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class UsuarioInfo(
     val fechaReins: String,
     val modEducativo:Int,
