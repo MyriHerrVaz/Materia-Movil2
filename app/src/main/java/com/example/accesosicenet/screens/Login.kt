@@ -80,7 +80,7 @@ fun BodyContent(navController: NavController,viewmodel: LoginView){
             if (!viewmodel.nocontrol.equals("") && !viewmodel.password.equals("")){
                 corrutina.launch {
                     if(viewmodel.getAccess(viewmodel.nocontrol,viewmodel.password)){
-                        viewmodel.getInfo()
+                        viewmodel.getInfo(viewmodel.nocontrol)
                         navController.navigate(route = AppScreens.Perfil.ruta)
                     }
                 }

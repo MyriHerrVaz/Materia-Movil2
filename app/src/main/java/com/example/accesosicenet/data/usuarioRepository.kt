@@ -2,22 +2,30 @@ package com.example.accesosicenet.data
 
 import ApiService
 import android.util.Log
+import com.example.accesosicenet.modelos.CalifFinales
+import com.example.accesosicenet.modelos.CalifUnidad
+import com.example.accesosicenet.modelos.CargaAcademica
 import com.example.accesosicenet.modelos.UsuarioAccess
 import com.example.accesosicenet.modelos.UsuarioInfo
-import com.example.accesosicenet.network.InfoApiService
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
 import java.io.IOException
 
 interface usuarioRepository{
-    suspend fun getAccess(matricula: String, password: String): Boolean
-    suspend fun getInfo():UsuarioInfo
+    suspend fun getAccess(matricula: String, password: String): String
+    suspend fun getInfo(matricula: String):String
+    suspend fun getCargaAcademica(): String
+    suspend fun getCardex(lineamiento: String): String
+    suspend fun getCalificacionUnidad(): String
+    suspend fun getCalificacionFinal(modoEducativo:String): String
 }
 class UsuariosRepository (
-    private val usuarioApiService: ApiService,
-    private val usuarioInfo: InfoApiService
+    private val usuarioApiService: ApiService
 ):usuarioRepository{
-    override suspend fun getAccess(matricula: String, password: String ):Boolean{
+    override suspend fun getAccess(matricula: String, password: String ):String{
         val xml = """
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
               <soap:Body>
@@ -30,27 +38,24 @@ class UsuariosRepository (
             </soap:Envelope>
             """.trimIndent()
         val requestBody=xml.toRequestBody()
-        usuarioApiService.getCokies()
-        var result = UsuarioAccess(false,"",0,"","");
+        usuarioApiService.getCookies()
+        var result=""
         try {
             var respuestDatos=usuarioApiService.getAcceso(requestBody).string().split("{","}")
             if(respuestDatos.size>1){
-                 result = Gson().fromJson("{"+respuestDatos[1]+"}", UsuarioAccess::class.java)
+                 //result = Gson().fromJson("{"+respuestDatos[1]+"}", UsuarioAccess::class.java)
+                result = "{"+respuestDatos[1]+"}"
                 Log.d("Infoacceso",""+result)
-                result.acceso.equals("true")
             } else
                 false
         }catch (e: IOException){
             false
         }
-        return result.acceso
+        return result
     }
 
-
-    override suspend fun getInfo():UsuarioInfo{
-        var alumnoInfo= UsuarioInfo("",0,false,""
-            ,"",false,"",0,0,
-            0,"","",0,"","")
+    override suspend fun getInfo(matricula: String):String{
+        var alumnoInfo=""
         val xml = """
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
               <soap:Body>
@@ -60,16 +65,113 @@ class UsuariosRepository (
             """.trimIndent()
         val requestBody=xml.toRequestBody()
         try {
-            val respuestaInfo=usuarioInfo.getInfo(requestBody).string().split("{","}")
+            val respuestaInfo=usuarioApiService.getInfo(requestBody).string().split("{","}")
             if(respuestaInfo.size>1){
-                alumnoInfo = Gson().fromJson("{"+respuestaInfo[1]+"}", UsuarioInfo::class.java)
-                alumnoInfo
+                //alumnoInfo = Gson().fromJson("{"+respuestaInfo[1]+"}", UsuarioInfo::class.java)
+                alumnoInfo ="{"+respuestaInfo[1]+"}"
+                return alumnoInfo
             } else
-                alumnoInfo
+                return alumnoInfo
         }catch (e:IOException){
-            alumnoInfo
+            return alumnoInfo
         }
-        return alumnoInfo
+    }
+    //Horarios del alumno
+    override suspend fun getCargaAcademica():String{
+        var Horario=""
+        val xml = """
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+              <soap:Body>
+                <getCargaAcademicaByAlumno xmlns="http://tempuri.org/" />
+              </soap:Body>
+            </soap:Envelope>
+            """.trimIndent()
+        val requestBody=xml.toRequestBody()
+        try {
+            val respuestaHorario = usuarioApiService.getCargaAcademica(requestBody).string()
+            Log.d("ObtenerHorario",""+respuestaHorario)
+            Horario = extracJson(respuestaHorario,"getCargaAcademicaByAlumnoResult")
+            return Horario
+        }catch (e:IOException){
+            return Horario
+        }
+    }
+    //Cardex del alumno
+    override suspend fun getCardex(lineamiento:String):String{
+        val xml = """
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+              <soap:Body>
+                <getAllKardexConPromedioByAlumno xmlns="http://tempuri.org/">
+                  <aluLineamiento>${lineamiento}</aluLineamiento>
+                </getAllKardexConPromedioByAlumno>
+              </soap:Body>
+            </soap:Envelope>
+            """.trimIndent()
+        val requestBody=xml.toRequestBody()
+        try {
+            return extracJson(usuarioApiService.getCardex(requestBody).string(),"getAllKardexConPromedioByAlumnoResult")
+        }catch (e:Exception){
+            return ""
+        }
+    }
+    //Calificacion por unidad
+    override suspend fun getCalificacionUnidad(): String{
+
+        var unidades = ""
+        val xml = """
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+                <soap:Body>
+                    <getCargaAcademicaByAlumno xmlns="http://tempuri.org/" />
+                </soap:Body>
+            </soap:Envelope>
+            """.trimIndent()
+        val requestBody=xml.toRequestBody()
+        try {
+            val respuestaUnidad=usuarioApiService.getCalificacionUnidad(requestBody).string()
+            unidades =  extracJson(respuestaUnidad,"getCalifUnidadesByAlumnoResult")
+                    //Gson().fromJson(unidades, object : TypeToken<List<CalifUnidad>>(){}.type)
+            return unidades
+        }catch (e:IOException){
+            return unidades
+        }
+    }
+    //Calificacion Final
+    override suspend fun getCalificacionFinal(modoEducativo:String):String{
+        var final = ""
+        val xml = """
+            <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+              <soap:Body>
+                <getAllCalifFinalByAlumnos xmlns="http://tempuri.org/">
+                  <bytModEducativo>${modoEducativo}</bytModEducativo>
+                </getAllCalifFinalByAlumnos>
+              </soap:Body>
+            </soap:Envelope>
+            """.trimIndent()
+        val requestBody=xml.toRequestBody()
+        try {
+            val respuestaFinal=usuarioApiService.getCalificacionFinal(requestBody).string()
+            final = extracJson(respuestaFinal,"getAllCalifFinalByAlumnosResult")
+            return final
+        }catch (e:IOException){
+            return final
+        }
+    }
+
+    fun extracJson(responseBody: String, tag: String):String{
+        val factory = XmlPullParserFactory.newInstance()
+        factory.isNamespaceAware = true
+        val parser = factory.newPullParser()
+        parser.setInput(responseBody.reader())
+
+        var eventType = parser.eventType
+        while (eventType != XmlPullParser.END_DOCUMENT) {
+            if (eventType == XmlPullParser.START_TAG && parser.name == tag) {
+                parser.next()
+                return parser.text
+            }
+            eventType = parser.next()
+        }
+        return ""
     }
 }
 

@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class UsuarioAccess (
-    val acceso: Boolean,
-    val estatus: String,
-    val tipoUsuario: Int,
-    val contrasenia: String,
-    val matricula: String
+    val acceso: Boolean = false,
+    val estatus: String = "",
+    val tipoUsuario: Int = 0,
+    val contrasenia: String="",
+    val matricula: String=""
 )

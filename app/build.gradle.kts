@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
+    id("com.google.devtools.ksp").version("1.9.22-1.0.16")
 }
 
 android {
@@ -51,6 +51,7 @@ android {
 }
 
 dependencies {
+    //val hilt_version ="2.44" // version de hilt
 
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     // Retrofit
@@ -66,7 +67,12 @@ dependencies {
     // dependencias para navegar por las ventanas de android
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
-    //implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // Dependencias para trabajar con room
+    ksp("androidx.room:room-compiler:${rootProject.extra["room_version"]}")
+    implementation("androidx.room:room-ktx:${rootProject.extra["room_version"]}")
+    implementation("androidx.room:room-runtime:${rootProject.extra["room_version"]}")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
 
     implementation("com.google.code.gson:gson:2.10")
 
