@@ -12,12 +12,10 @@ class ServicerReceiver : Service() {
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
-
     override fun onStartCommand(intent: Intent?, flags:Int, startID:Int) : Int{
         if (isRunning){
             stopService(Intent(applicationContext, ServicerReceiver::class.java))
         }
-
         isRunning=true
         callReceiver = ElBroadcastReceiver()
         val intentFilter = IntentFilter()
@@ -25,7 +23,6 @@ class ServicerReceiver : Service() {
         registerReceiver(callReceiver, intentFilter)
         return START_STICKY
     }
-
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(callReceiver)
