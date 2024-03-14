@@ -109,7 +109,7 @@ fun CalificacionFinalContent(navController: NavController, viewmodel: LoginView)
     ) {
         Text("Calif finales")
         Text(
-            text = "CalifFinal: " + viewmodel.final.toString()
+            text = "Fecha: " + viewmodel.final[1].fecha + "\nCalifFinal: " + viewmodel.final.toString()
         )
         Button(onClick = {
             navController.popBackStack()

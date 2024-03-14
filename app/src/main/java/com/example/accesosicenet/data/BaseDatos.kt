@@ -5,7 +5,6 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.accesosicenet.data.baseDatos.TablaCardex
-import com.example.accesosicenet.data.baseDatos.TablaCardexConPromedio
 import com.example.accesosicenet.data.baseDatos.TablaCardexR
 import com.example.accesosicenet.data.baseDatos.TablaCargaAcademica
 import com.example.accesosicenet.data.baseDatos.TablaUnidad
@@ -15,7 +14,7 @@ import com.example.accesosicenet.data.baseDatos.Tablafinales
 import com.example.accesosicenet.data.interfaces.DaoUsuarioInfo
 
 @Database(
-    entities = [TablaCardex::class, TablaCardexR::class, TablaCardexConPromedio::class,
+    entities = [TablaCardex::class, TablaCardexR::class,
                TablaCargaAcademica::class, Tablafinales::class, TablaUnidad::class,
                TablaUsuarioAccess::class, TablaUsuarioInfo::class],
     version = 1,

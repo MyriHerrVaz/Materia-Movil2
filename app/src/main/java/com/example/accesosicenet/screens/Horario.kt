@@ -114,7 +114,7 @@ fun HorarioContent(navController: NavController, viewmodel: LoginView){
     ) {
         Text("Horario")
         Text(
-            text = "Horario: " //+ viewmodel.horario
+            text = "\nHorario: "+viewmodel.CargaAcademica[1].fecha +"\nHorario: "+viewmodel.CargaAcademica.toString()
         )
         Button(onClick = {
             navController.popBackStack()

@@ -14,10 +14,11 @@ interface usuarioRepositoryDB{
     suspend fun existeUsuario():Int
     suspend fun getUsuarioAccessDB(matricula: String, password: String):TablaUsuarioAccess
     suspend fun getUsuarioInfoDB():TablaUsuarioInfo
-    suspend fun getUsuarioCardexDB(lineamiento: String):List<TablaCardex>
-    suspend fun getUsuarioHorarioDB():List<TablaCargaAcademica>
-    suspend fun getUsuarioUnidadDB():List<TablaUnidad>
-    suspend fun getUsuarioFinalesDB():List<Tablafinales>
+    suspend fun getUsuarioCardexDB():MutableList<TablaCardex>
+    suspend fun getUsuarioCardexRDB():TablaCardexR
+    suspend fun getUsuarioHorarioDB():MutableList<TablaCargaAcademica>
+    suspend fun getUsuarioUnidadDB():MutableList<TablaUnidad>
+    suspend fun getUsuarioFinalesDB():MutableList<Tablafinales>
     suspend  fun insertUsuarioAccess(UsuarioAccess: TablaUsuarioAccess)
     suspend  fun insertFinales(UsuarioFinal: Tablafinales)
     suspend  fun insertHorario(UsuarioHorario: TablaCargaAcademica)
@@ -38,10 +39,11 @@ class OfflineUsuarioRepository(private val DaoUsuario: DaoUsuarioInfo): usuarioR
     override suspend fun existeUsuario():Int=DaoUsuario.existeUsuario()
     override suspend fun getUsuarioAccessDB(matricula: String, password: String):TablaUsuarioAccess = DaoUsuario.getUsuarioAccessDB(matricula,password)
     override suspend fun getUsuarioInfoDB():TablaUsuarioInfo = DaoUsuario.getUsuarioInfoDB()
-    override suspend fun getUsuarioCardexDB(lineamiento: String):List<TablaCardex> = DaoUsuario.getUsuarioCardexDB(lineamiento)
-    override suspend fun getUsuarioHorarioDB():List<TablaCargaAcademica> = DaoUsuario.getUsuarioHorarioDB()
-    override suspend fun getUsuarioUnidadDB():List<TablaUnidad> =DaoUsuario.getUsuarioUnidadDB()
-    override suspend fun getUsuarioFinalesDB():List<Tablafinales> =DaoUsuario.getUsuarioFinalesDB()
+    override suspend fun getUsuarioCardexDB():MutableList<TablaCardex> = DaoUsuario.getUsuarioCardexDB()
+    override suspend fun getUsuarioCardexRDB():TablaCardexR = DaoUsuario.getCardexR()
+    override suspend fun getUsuarioHorarioDB():MutableList<TablaCargaAcademica> = DaoUsuario.getUsuarioHorarioDB()
+    override suspend fun getUsuarioUnidadDB():MutableList<TablaUnidad> =DaoUsuario.getUsuarioUnidadDB()
+    override suspend fun getUsuarioFinalesDB():MutableList<Tablafinales> = DaoUsuario.getUsuarioFinalesDB()
     override suspend  fun insertUsuarioAccess(UsuarioAccess: TablaUsuarioAccess) = DaoUsuario.insertUsuarioAccess(UsuarioAccess)
     override suspend  fun insertFinales(UsuarioFinal: Tablafinales) = DaoUsuario.insertFinales(UsuarioFinal)
     override suspend  fun insertHorario(UsuarioHorario: TablaCargaAcademica) = DaoUsuario.insertHorario(UsuarioHorario)

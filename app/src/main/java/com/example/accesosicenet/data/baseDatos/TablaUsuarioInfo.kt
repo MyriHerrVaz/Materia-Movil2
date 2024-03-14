@@ -3,10 +3,13 @@ package com.example.accesosicenet.data.baseDatos
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Entity(tableName = "TablaUsuarioInfo")
 data class TablaUsuarioInfo(
-    @PrimaryKey @ColumnInfo(name = "matricula") val matricula: String,
+    @PrimaryKey @ColumnInfo(name = "matricula") val matricula: String="",
     @ColumnInfo(name = "fechaReins") val fechaReins: String = "",
     @ColumnInfo(name = "modEducativo") val modEducativo: Int = 0,
     @ColumnInfo(name = "adeudo") val adeudo: Boolean = false,
@@ -20,6 +23,7 @@ data class TablaUsuarioInfo(
     @ColumnInfo(name = "especialidad") val especialidad: String = "",
     @ColumnInfo(name = "carrera") val carrera: String = "",
     @ColumnInfo(name = "lineamiento") val lineamiento: Int = 0,
-    @ColumnInfo(name = "nombre") val nombre: String = ""
+    @ColumnInfo(name = "nombre") val nombre: String = "",
+    @ColumnInfo(name = "fecha") var fecha: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 )
 

@@ -39,19 +39,19 @@ interface DaoUsuarioInfo {
     suspend fun existeUsuario():Int
 
     @Query("SELECT * from Tablafinales")
-    suspend fun getUsuarioFinalesDB():List<Tablafinales>
+    suspend fun getUsuarioFinalesDB():MutableList<Tablafinales>
 
     @Query("SELECT * from TablaCargaAcademica")
-    suspend fun getUsuarioHorarioDB():List<TablaCargaAcademica>
+    suspend fun getUsuarioHorarioDB():MutableList<TablaCargaAcademica>
 
     @Query("SELECT * from TablaUsuarioInfo")
     suspend fun getUsuarioInfoDB():TablaUsuarioInfo
 
     @Query("SELECT * from TablaCardex")
-    suspend fun getUsuarioCardexDB(lineamiento: String):List<TablaCardex>
+    suspend fun getUsuarioCardexDB():MutableList<TablaCardex>
 
     @Query("SELECT * from TablaUnidad")
-    suspend fun getUsuarioUnidadDB():List<TablaUnidad>
+    suspend fun getUsuarioUnidadDB():MutableList<TablaUnidad>
 
     @Query("SELECT * from TablaCardexR")
     suspend fun getCardexR(): TablaCardexR

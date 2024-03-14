@@ -2,7 +2,6 @@ package com.example.accesosicenet.data
 
 import ApiService
 import android.content.Context
-import androidx.room.Database
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -12,6 +11,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 interface AppContainer{
     val usuariosRepository:usuarioRepository
     val usuariosRepositoryBD:usuarioRepositoryDB
+    val usuariosRepositoryWorker: usuarioRepositoryWorker
 }
 
 class DefaultAppContainer(private val context: Context): AppContainer {
@@ -36,6 +36,9 @@ class DefaultAppContainer(private val context: Context): AppContainer {
     }
     override val usuariosRepositoryBD: usuarioRepositoryDB by lazy {
         OfflineUsuarioRepository(BaseDatos.getDatabase(context).getDaoUsuarioInfo())
+    }
+    override val usuariosRepositoryWorker: usuarioRepositoryWorker by lazy {
+        WorkAdminRepository(context)
     }
 
 }
@@ -76,5 +79,9 @@ class CookiesInterceptor : Interceptor {
         }
 
         return response
+    }
+    // Método para limpiar todas las cookies almacenadas en cookieStore
+    fun clearCookies() {
+        cookieStore.clear()
     }
 }

@@ -2,13 +2,6 @@ package com.example.accesosicenet.data
 
 import ApiService
 import android.util.Log
-import com.example.accesosicenet.modelos.CalifFinales
-import com.example.accesosicenet.modelos.CalifUnidad
-import com.example.accesosicenet.modelos.CargaAcademica
-import com.example.accesosicenet.modelos.UsuarioAccess
-import com.example.accesosicenet.modelos.UsuarioInfo
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.xmlpull.v1.XmlPullParser
 import org.xmlpull.v1.XmlPullParserFactory
@@ -109,14 +102,15 @@ class UsuariosRepository (
             """.trimIndent()
         val requestBody=xml.toRequestBody()
         try {
+            Log.d("ObtenerCardex",""+extracJson(usuarioApiService.getCardex(requestBody).string(),"getAllKardexConPromedioByAlumnoResult"))
             return extracJson(usuarioApiService.getCardex(requestBody).string(),"getAllKardexConPromedioByAlumnoResult")
+
         }catch (e:Exception){
             return ""
         }
     }
     //Calificacion por unidad
     override suspend fun getCalificacionUnidad(): String{
-
         var unidades = ""
         val xml = """
             <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
@@ -129,6 +123,7 @@ class UsuariosRepository (
         try {
             val respuestaUnidad=usuarioApiService.getCalificacionUnidad(requestBody).string()
             unidades =  extracJson(respuestaUnidad,"getCalifUnidadesByAlumnoResult")
+            Log.d("Obtener Unidades",""+unidades)
                     //Gson().fromJson(unidades, object : TypeToken<List<CalifUnidad>>(){}.type)
             return unidades
         }catch (e:IOException){

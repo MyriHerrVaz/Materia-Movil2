@@ -109,7 +109,7 @@ fun CardexAlumnoContent(navController: NavController, viewmodel: LoginView){
     ) {
         Text("Cardex Completo")
         Text(
-            text = "Cardex del alumno: " + viewmodel.cardex.toString()
+            text = "fecha: " + viewmodel.cardex[0].fecha+"\nCardex del alumno: " + viewmodel.cardex.toString()
         )
         Button(onClick = {
             navController.popBackStack()

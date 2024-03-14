@@ -3,6 +3,9 @@ package com.example.accesosicenet.data.baseDatos
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @Entity(tableName = "TablaCargaAcademica")
 data class TablaCargaAcademica(
@@ -20,5 +23,6 @@ data class TablaCargaAcademica(
     @ColumnInfo(name = "Sabado") var Sabado: String = "",
     @ColumnInfo(name = "Semipresencial") var Semipresencial: String = "",
     @ColumnInfo(name = "Viernes") var Viernes: String = "",
-    @ColumnInfo(name = "clvOficial") var clvOficial: String = ""
+    @ColumnInfo(name = "clvOficial") var clvOficial: String = "",
+    @ColumnInfo(name = "fecha") var fecha: String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 )

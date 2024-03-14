@@ -115,7 +115,7 @@ fun CalificacionUnidadContent(navController: NavController, viewmodel: LoginView
         }*/
         Text("Calif Parcial")
         Text(
-            text = "Calificacion Unidad: " + viewmodel.unidad.toString()
+            text = "Fecha: " + viewmodel.unidad[1].fecha + "\nCalificacion Unidad: " + viewmodel.unidad.toString()
         )
         Button(onClick = {
             navController.popBackStack()
