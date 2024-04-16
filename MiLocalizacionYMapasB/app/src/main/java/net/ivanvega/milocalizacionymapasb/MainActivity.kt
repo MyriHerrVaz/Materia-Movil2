@@ -14,7 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.platform.location.locationupdates.LocationUpdatesScreen
 import com.example.platform.location.permission.LocationPermissionScreen
 import net.ivanvega.milocalizacionymapasb.ui.location.CurrentLocationScreen
+import net.ivanvega.milocalizacionymapasb.ui.mapas.ControlarCamara
+import net.ivanvega.milocalizacionymapasb.ui.mapas.CrearMapas
+import net.ivanvega.milocalizacionymapasb.ui.mapas.CrearMapas2
+import net.ivanvega.milocalizacionymapasb.ui.mapas.DibujarMaps
+import net.ivanvega.milocalizacionymapasb.ui.mapas.Experimental
 import net.ivanvega.milocalizacionymapasb.ui.mapas.MiPrimerMapa
+import net.ivanvega.milocalizacionymapasb.ui.mapas.RecomponerElementos
 import net.ivanvega.milocalizacionymapasb.ui.theme.MiLocalizacionYMapasBTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,7 +37,13 @@ class MainActivity : ComponentActivity() {
                         //LocationPermissionScreen()
                         //CurrentLocationScreen()
                         //LocationUpdatesScreen()
-                        MiPrimerMapa()
+                        //MiPrimerMapa()
+                        //CrearMapas()
+                        //CrearMapas2()
+                        //ControlarCamara()
+                        //DibujarMaps()
+                        //RecomponerElementos()
+                        Experimental()
                     }
                 }
             }
