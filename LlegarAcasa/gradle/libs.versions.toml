@@ -14,6 +14,14 @@ kotlinxCoroutinesPlayServices = "1.8.1-Beta"
 playServicesMaps = "18.2.0"
 mapsCompose = "4.3.3"
 navigationCompose = "2.7.7"
+contentpager = "1.0.0"
+roomCommon = "2.6.1"
+playServicesDrive = "17.0.0"
+mapsComposeUtils = "4.4.1"
+kotlinxCoroutinesAndroid = "1.6.4"
+composeBomVersion = "2024.04.01"
+converterGson = "2.11.0"
+converterGsonVersion = "2.10.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -37,6 +45,14 @@ kotlinx-play-services-maps = { group = "com.google.android.gms", name = "play-se
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "mapsCompose" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-contentpager = { group = "androidx.contentpager", name = "contentpager", version.ref = "contentpager" }
+androidx-room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
+play-services-drive = { group = "com.google.android.gms", name = "play-services-drive", version.ref = "playServicesDrive" }
+maps-compose-utils = { group = "com.google.maps.android", name = "maps-compose-utils", version.ref = "mapsComposeUtils" }
+kotlinx-coroutines-android = { group = "org.danbrough.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBomVersion" }
+converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "converterGson" }
+retrofit2-converter-gson = { group = "io.github.goooler.retrofit2", name = "converter-gson", version.ref = "converterGsonVersion" }
 
 
 [plugins]
