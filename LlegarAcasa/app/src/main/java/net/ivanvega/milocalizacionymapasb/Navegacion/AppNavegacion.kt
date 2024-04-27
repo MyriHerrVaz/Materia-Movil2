@@ -15,11 +15,16 @@ import net.ivanvega.milocalizacionymapasb.ui.mapas.StreetView
 fun AppNavegacion() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "PrimerMapa") {
-        composable(route = "primermapa") { MiPrimerMapa(navController = navController) }
-        composable(route = "dibujarmapa"){ DrawingMap(navController = navController)}
-        composable(route = "streeview"){ StreetView(navController = navController)}
-        composable(route = "mapa2"){CrearMapas2(navController = navController)}
-        composable(route = "pais"){RecoposingeElements(navController = navController)}
+        composable(route = "primermapa")
+        { MiPrimerMapa(navController = navController) }
+        composable(route = "dibujarmapa")
+        { DrawingMap(navController = navController)}
+        composable(route = "streeview")
+        { StreetView(navController = navController)}
+        composable(route = "mapa2")
+        {CrearMapas2(navController = navController)}
+        composable(route = "pais")
+        {RecoposingeElements(navController = navController)}
 
     }
 }
