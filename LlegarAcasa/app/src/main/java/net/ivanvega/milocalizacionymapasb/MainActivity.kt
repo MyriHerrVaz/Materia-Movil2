@@ -11,17 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.platform.location.locationupdates.LocationUpdatesScreen
-import com.example.platform.location.permission.LocationPermissionScreen
 import net.ivanvega.milocalizacionymapasb.ui.location.CurrentLocationScreen
-import net.ivanvega.milocalizacionymapasb.ui.mapas.ControlarCamara
-import net.ivanvega.milocalizacionymapasb.ui.mapas.CrearMapas
-import net.ivanvega.milocalizacionymapasb.ui.mapas.CrearMapas2
-import net.ivanvega.milocalizacionymapasb.ui.mapas.DibujarMaps
-import net.ivanvega.milocalizacionymapasb.ui.mapas.Experimental
-import net.ivanvega.milocalizacionymapasb.ui.mapas.MiPrimerMapa
-import net.ivanvega.milocalizacionymapasb.ui.mapas.RecomponerElementos
 import net.ivanvega.milocalizacionymapasb.ui.theme.MiLocalizacionYMapasBTheme
+import net.ivanvega.milocalizacionymapasb.ui.mapas.GoogleMapScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,13 +29,16 @@ class MainActivity : ComponentActivity() {
                         //LocationPermissionScreen()
                         //CurrentLocationScreen()
                         //LocationUpdatesScreen()
+
                         //MiPrimerMapa()
-                        //CrearMapas()
+                        //DrawingMap()
+                        //RecoposingeElements()
+                        // CurrentLocationScreen()
+                        //StreetView()
                         //CrearMapas2()
-                        //ControlarCamara()
-                        //DibujarMaps()
-                        //RecomponerElementos()
-                        Experimental()
+                        // GoogleMapView(true)
+                        // AppNavegacion()
+                        GoogleMapScreen()
                     }
                 }
             }
@@ -51,6 +46,25 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+/*
+class MainActivity : ComponentActivity() {
+@RequiresApi(Build.VERSION_CODES.Q)
+override fun onCreate(savedInstanceState: Bundle?){
+    super.onCreate(savedInstanceState)
+    setContent {
+        MiLocalizacionYMapasBTheme {
+            Surface (
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+                ){
+                CurrentLocationScreen()            }
+        }
+    }
+}
+}
+
+ */
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
@@ -66,3 +80,6 @@ fun GreetingPreview() {
         Greeting("Android")
     }
 }
+
+
+
