@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.trace.annotation)
     implementation(libs.compose)
+    implementation(libs.local)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

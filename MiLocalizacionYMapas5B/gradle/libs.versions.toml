@@ -22,6 +22,7 @@ permission = "0.1.0"
 annotation = "0.26.1"
 annotationVersion = "0.7.0"
 compose = "0.1.0"
+local = "1.0.277"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,6 +54,7 @@ permission = { group = "cc.eamon.open", name = "permission", version.ref = "perm
 annotation = { group = "com.android.designcompose", name = "annotation", version.ref = "annotation" }
 trace-annotation = { group = "com.google.cloud.trace", name = "annotation", version.ref = "annotationVersion" }
 compose = { group = "app.cash.treehouse", name = "compose", version.ref = "compose" }
+local = { group = "com.datomic", name = "local", version.ref = "local" }
 
 
 [plugins]
