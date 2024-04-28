@@ -214,4 +214,11 @@ private fun createRoute(
         }
     }
 }
+//Funcion de dibujo con las coordenadas que se rescataron con el json de la API
+private fun drawRoute(routeResponse: RouteResponse?, routePoints: MutableList<LatLng>) {
+    routeResponse?.feature?.firstOrNull()?.geometry?.coordinates?.forEach {
+        val latLng = LatLng(it[1], it[0])
+        routePoints.add(latLng)
+    }
+}
 
