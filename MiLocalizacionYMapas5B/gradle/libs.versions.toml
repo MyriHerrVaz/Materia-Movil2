@@ -15,6 +15,13 @@ playServicesMaps = "18.2.0"
 mapsCompose = "4.3.3"
 retrofit = "2.11.0"
 gson = "2.10.1"
+googleMaps = "5.4.0"
+google = "5"
+maps = "3.1.0-beta"
+permission = "0.1.0"
+annotation = "0.26.1"
+annotationVersion = "0.7.0"
+compose = "0.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -39,6 +46,13 @@ play-services-maps = { group = "com.google.android.gms", name = "play-services-m
 maps-compose = { group = "com.google.maps.android", name = "maps-compose", version.ref = "mapsCompose" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+google-maps = { group = "com.capacitorjs", name = "google-maps", version.ref = "googleMaps" }
+google = { group = "com.google", name = "google", version.ref = "google" }
+maps = { group = "com.google.android.libraries.maps", name = "maps", version.ref = "maps" }
+permission = { group = "cc.eamon.open", name = "permission", version.ref = "permission" }
+annotation = { group = "com.android.designcompose", name = "annotation", version.ref = "annotation" }
+trace-annotation = { group = "com.google.cloud.trace", name = "annotation", version.ref = "annotationVersion" }
+compose = { group = "app.cash.treehouse", name = "compose", version.ref = "compose" }
 
 
 [plugins]
