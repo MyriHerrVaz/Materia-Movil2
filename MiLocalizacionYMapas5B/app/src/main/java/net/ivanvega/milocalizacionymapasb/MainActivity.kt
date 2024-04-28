@@ -19,6 +19,7 @@ import net.ivanvega.milocalizacionymapasb.ui.mapas.CrearMapas
 import net.ivanvega.milocalizacionymapasb.ui.mapas.CrearMapas2
 import net.ivanvega.milocalizacionymapasb.ui.mapas.DibujarMaps
 import net.ivanvega.milocalizacionymapasb.ui.mapas.Experimental
+import net.ivanvega.milocalizacionymapasb.ui.mapas.GoogleMapScreen
 import net.ivanvega.milocalizacionymapasb.ui.mapas.MiPrimerMapa
 import net.ivanvega.milocalizacionymapasb.ui.mapas.RecomponerElementos
 import net.ivanvega.milocalizacionymapasb.ui.theme.MiLocalizacionYMapasBTheme
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
                         //ControlarCamara()
                         //DibujarMaps()
                         //RecomponerElementos()
-                        Experimental()
+                        GoogleMapScreen()
                     }
                 }
             }

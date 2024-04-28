@@ -32,6 +32,7 @@ import kotlinx.coroutines.tasks.await
 import net.ivanvega.milocalizacionymapasb.Manifest
 import net.ivanvega.milocalizacionymapasb.ui.location.CurrentLocationContent
 import net.ivanvega.milocalizacionymapasb.ui.location.PermissionBox
+import retrofit2.Retrofit
 
 //PERMISOS
 @SupressLint("MissingPermission")
@@ -221,4 +222,13 @@ private fun drawRoute(routeResponse: RouteResponse?, routePoints: MutableList<La
         routePoints.add(latLng)
     }
 }
+
+//se obtiene el llamada del retrofit
+private fun getRetrofit(): Retrofit {
+    return Retrofit.Builder()
+        .baseUrl("https://api.openrouteservice.org/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+}
+
 
