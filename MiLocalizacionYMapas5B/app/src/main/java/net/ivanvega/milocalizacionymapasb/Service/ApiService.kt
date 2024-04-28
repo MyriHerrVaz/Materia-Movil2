@@ -1,6 +1,7 @@
 package net.ivanvega.milocalizacionymapasb.Service
 
 
+import net.ivanvega.milocalizacionymapasb.ui.RouteResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
