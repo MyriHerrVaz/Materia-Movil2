@@ -112,7 +112,7 @@ fun CurrentLocationContent(usePreciseLocation: Boolean) {
                     snippet = "Casa"
                 )
 
-                //verifica la posicion actual con la casa de juancarlos
+                //verifica la posicion actual con la casa de jMyriam
                 if (!markerState.position.equals(CasaMyriam)) {
                     Marker(
                         state = MarkerState(position = markerState.position),
