@@ -2,21 +2,31 @@ package net.ivanvega.milocalizacionymapasb.ui.mapas
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.gms.location.CurrentLocationRequest
+import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import net.ivanvega.milocalizacionymapasb.Manifest
 import net.ivanvega.milocalizacionymapasb.ui.location.CurrentLocationContent
 import net.ivanvega.milocalizacionymapasb.ui.location.PermissionBox
@@ -89,5 +99,91 @@ fun CurrentLocationContent(usePermissionLocation: Boolean){
                     title = "Casa de Jesse",
                     snippet = "Casa"
                 )
+                //verifica la posicion actual con la casa de juancarlos
+                if (!markerState.position.equals(CasaMyriam)) {
+                    Marker(
+                        state = MarkerState(position = markerState.position),
+                        title = "Ubicacion actual"
+                    )
+                    val RouteList = remember { mutableStateOf<List<LatLng>>(emptyList()) }
+                    createRoute(CasaMyriam markerState.position) { routePoints ->
+                        val pointsList = mutableListOf<LatLng>()
+                        for (i in routePoints.indices step 2) {
+                            val lat = routePoints[i]
+                            val lng = routePoints[i + 1]
+                            pointsList.add(LatLng(lat, lng))
+                        }
+                        RouteList.value = pointsList
+                    }
+                    // Se pintara la linea para la casa
+                    Polyline(points = RouteList.value)
 
+                    //lo mismo pero ahora con la casa de JESSE
+                } else if (!markerState2.position.equals(CasaSantiago)) {
+                    Marker(
+                        state = MarkerState(position = markerState2.position),
+                        title = "Ubicacion actual"
+                    )
+                    val RouteList = remember { mutableStateOf<List<LatLng>>(emptyList()) }
+                    createRoute(CasaSantiago, markerState2.position) { routePoints ->
+                        val pointsList = mutableListOf<LatLng>()
+                        for (i in routePoints.indices step 2) {
+                            val lat = routePoints[i]
+                            val lng = routePoints[i + 1]
+                            pointsList.add(LatLng(lat, lng))
+                        }
+                        RouteList.value = pointsList
+                    }
+                    Polyline(points = RouteList.value)
+                }
+            }
+            Row {
+             Button(onClick = {
+                 //se obtiene la localizacion actual de su celular, por eso el permiso de gps
+                 scope.launch(Dispatchers.IO) {
+                     val priority = if (usePreciseLocation) {
+                         Priority.PRIORITY_HIGH_ACCURACY
+                     } else {
+                         Priority.PRIORITY_BALANCED_POWER_ACCURACY
+                     }
+                     val result = locationClient.getCurrentLocation(
+                         priority,
+                         CancellationTokenSource().token,
+                     ).await()
+                     result?.let { fetchedLocation ->
+                         markerState.position =
+                             LatLng(fetchedLocation.latitude, fetchedLocation.longitude)
+                     }
+                 }
+             },
+             ) {
+                 Text(text = "Casa de Myriam")
+             }
+                Button(
+                    onClick = {
+                        scope.launch(Dispatchers.IO) {
+                            val priority = if (usePreciseLocation) {
+                                Priority.PRIORITY_HIGH_ACCURACY
+                            } else {
+                                Priority.PRIORITY_BALANCED_POWER_ACCURACY
+                            }
+                            val result = locationClient.getCurrentLocation(
+                                priority,
+                                CancellationTokenSource().token,
+                            ).await()
+                            result?.let { fetchedLocation ->
+                                markerState2.position =
+                                    LatLng(fetchedLocation.latitude, fetchedLocation.longitude)
+                            }
+                        }
+                    },
+                ) {
+                    Text(text = "Casa de JESSE")
+                }
+            }
+        }
+    }
+}
+             }
+            }
     }
