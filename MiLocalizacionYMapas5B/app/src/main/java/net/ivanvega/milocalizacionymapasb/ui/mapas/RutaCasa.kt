@@ -1,5 +1,6 @@
 package net.ivanvega.milocalizacionymapasb.ui.mapas
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +25,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.google.maps.android.compose.rememberMarkerState
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -181,9 +183,35 @@ fun CurrentLocationContent(usePermissionLocation: Boolean){
                     Text(text = "Casa de JESSE")
                 }
             }
+
         }
     }
 }
-             }
-            }
+
+
+//Se encuentra la posicion de los dos puntos con la key de la API
+private fun createRoute(
+    startLocation: LatLng,
+    endLocation: LatLng,
+    callback: (List<Double>) -> Unit,
+) {
+    val routePoints = mutableListOf<LatLng>()
+    CoroutineScope(Dispatchers.IO).launch {
+        val call = getRetrofit().create(ApiServirce::class.java)
+            .getRoute(
+                "5b3ce3597851110001cf6248876d8cad012d4964a23567b4aede9053",
+                "${startLocation.longitude},${startLocation.latitude}",
+                "${endLocation.longitude},${endLocation.latitude}"
+            )
+        if (call.isSuccessful) {
+            drawRoute(call.body(), routePoints)
+            val pointsList = routePoints.flatMap { listOf(it.latitude, it.longitude) }
+            callback(pointsList)
+            Log.i("route", "OK")
+
+        } else {
+            Log.i("route", "KO")
+        }
     }
+}
+
