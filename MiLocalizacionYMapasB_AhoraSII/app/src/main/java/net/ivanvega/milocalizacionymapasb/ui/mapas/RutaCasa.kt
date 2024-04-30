@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.model.CameraPosition
@@ -56,6 +58,7 @@ fun MapScreen() {
         },
     )
 }
+
 //Permisos
 @RequiresPermission(
     anyOf = [Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION],
@@ -70,45 +73,34 @@ fun CurrentLocationContent(usePreciseLocation: Boolean) {
     val locationClient = remember {
         LocationServices.getFusedLocationProviderClient(context)
     }
-
-    var CasaJesse = remember {
-        LatLng(20.17900163991653, -101.43490493353579)
-    }
-
+    //Coordenadas
     var CasaMyriam = remember {
         LatLng(20.098503652706885, -101.39249902675638)
     }
-    var Itsur = remember {
-        LatLng(20.1404425247015, -101.15054421966045)
+    var Camarita = remember {
+        LatLng(20.108609429033308, -101.3895411497253)
     }
-
-
+    //Api
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(Itsur, 10f)
+        position = CameraPosition.fromLatLngZoom(Camarita, 10f)
     }
 
     Column(
-        Modifier
-            .fillMaxWidth()
+        Modifier.fillMaxSize()
+
     ) {
         val markerState = rememberMarkerState(position = CasaMyriam)
-        val markerState2 = rememberMarkerState(position = CasaJesse)
 
         Box(Modifier.fillMaxSize()) {
+            //Api 1
             GoogleMap(
                 modifier = Modifier.fillMaxSize(),
                 cameraPositionState = cameraPositionState
             ) {
-                // point Casa
+                // hubicacion del mapa de la Casa
                 Marker(
                     state = MarkerState(position = CasaMyriam),
                     title = "Casa de Myriam",
-                    snippet = "Casa"
-                )
-                // point Casa
-                Marker(
-                    state = MarkerState(position = CasaJesse),
-                    title = "Casa de Jesse",
                     snippet = "Casa"
                 )
 
@@ -129,31 +121,15 @@ fun CurrentLocationContent(usePreciseLocation: Boolean) {
                         RouteList.value = pointsList
                     }
                     // Se pintara la linea para la casa
-                    Polyline(points = RouteList.value)
-
-                    //lo mismo pero ahora con el rancho de Jesse
-                } else if (!markerState2.position.equals(CasaJesse)) {
-                    Marker(
-                        state = MarkerState(position = markerState2.position),
-                        title = "Ubicacion actual"
-                    )
-                    val RouteList = remember { mutableStateOf<List<LatLng>>(emptyList()) }
-                    createRoute(CasaJesse, markerState2.position) { routePoints ->
-                        val pointsList = mutableListOf<LatLng>()
-                        for (i in routePoints.indices step 2) {
-                            val lat = routePoints[i]
-                            val lng = routePoints[i + 1]
-                            pointsList.add(LatLng(lat, lng))
-                        }
-                        RouteList.value = pointsList
-                    }
+                    //Api
                     Polyline(points = RouteList.value)
                 }
             }
             Row {
                 Button(
                     onClick = {
-//se obtiene la localizacion actual de su celular, por eso el permiso de gps
+
+                        //se obtiene la localizacion actual de su celular, por eso el permiso de gps
                         scope.launch(Dispatchers.IO) {
                             val priority = if (usePreciseLocation) {
                                 Priority.PRIORITY_HIGH_ACCURACY
@@ -170,35 +146,16 @@ fun CurrentLocationContent(usePreciseLocation: Boolean) {
                             }
                         }
                     },
+                    //posicion del boton de casa de Myriam
+                    modifier = Modifier.fillMaxWidth().padding(16.dp)
                 ) {
                     Text(text = "Casa de Myriam")
                 }
-                Button(
-                    onClick = {
-                        scope.launch(Dispatchers.IO) {
-                            val priority = if (usePreciseLocation) {
-                                Priority.PRIORITY_HIGH_ACCURACY
-                            } else {
-                                Priority.PRIORITY_BALANCED_POWER_ACCURACY
-                            }
-                            val result = locationClient.getCurrentLocation(
-                                priority,
-                                CancellationTokenSource().token,
-                            ).await()
-                            result?.let { fetchedLocation ->
-                                markerState2.position =
-                                    LatLng(fetchedLocation.latitude, fetchedLocation.longitude)
-                            }
-                        }
-                    },
-                ) {
-                    Text(text = "Rancho de Jesse")
-                }
+
             }
         }
     }
 }
-
 
 
 //Se encuentra la posicion de los dos puntos con la key de la API
