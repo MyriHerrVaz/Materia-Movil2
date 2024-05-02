@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1069711582408",
+    "project_id": "mensajeandroid-f9e00",
+    "storage_bucket": "mensajeandroid-f9e00.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1069711582408:android:e7f29ef647236f98c971fd",
+        "android_client_info": {
+          "package_name": "com.Fire.ejemplofire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVljoNlPtLg77MyIo-hwXlx14CTi81bcs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
