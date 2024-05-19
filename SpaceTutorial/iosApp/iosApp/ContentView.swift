@@ -69,7 +69,28 @@ extension ContentView {
     @MainActor
     class ViewModel: ObservableObject {
         @Published var launches = LoadableLaunches.loading
+
+        let helper: KoinHelper = KoinHelper()
+
+        init() {
+           self.loadLaunches(forceReload: false)
+        }
+
+        func loadLaunches(forceReload: Bool) {
+            // TODO: retrieve data
+        }
     }
+}
+func loadLaunches(forceReload: Bool) {
+   Task {
+       do {
+           self.launches = .loading
+           let launches = try await helper.getLaunches(forceReload: forceReload)
+           self.launches = .result(launches)
+       } catch {
+           self.launches = .error(error.localizedDescription)
+       }
+   }
 }
 
 extension RocketLaunch: Identifiable { }
