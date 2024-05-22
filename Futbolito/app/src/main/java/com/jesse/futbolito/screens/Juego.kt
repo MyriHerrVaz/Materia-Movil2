@@ -13,14 +13,12 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,7 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalConfiguration
@@ -44,7 +41,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.jesse.futbolito.R
-import com.jesse.futbolito.navegacion.AppScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -161,10 +157,18 @@ fun AccelerometerDemo() {
                 when {
                     (center.y - radius <= 0 && center.x >= middleX - radius && center.x <= middleX + radius) -> {
                         topScore += 1
+                        if (topScore >= 10){
+                            topScore = 0
+                            bottomScore = 0
+                        } // Reinicia el puntaje si alcanza 10 puntos
                         center = Offset(width / 2, height / 2) // Reposiciona el círculo en el centro
                     }
                     (center.y + radius >= height && center.x >= middleX - radius && center.x <= middleX + radius) -> {
                         bottomScore += 1
+                        if (bottomScore >= 10){
+                            topScore = 0
+                            bottomScore = 0
+                        } // Reinicia el puntaje si alcanza 10 puntos
                         center = Offset(width / 2, height / 2) // Reposiciona el círculo en el centro
                     }
                 }
@@ -196,6 +200,7 @@ fun AccelerometerDemo() {
         )
     }
 }
+
 
 
 @Composable
